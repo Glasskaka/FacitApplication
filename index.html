@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap" rel="stylesheet">
+  <title>Facit</title>
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body, h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Mulish', sans-serif;
+  }
+
+  .primary-button {
+    font-family: 'Mulish', sans-serif;
+    outline: none;
+    border: none;
+    display: flex;
+    background: #333;
+    align-items: center;
+    border-radius: 2px;
+    justify-content: center;
+    padding: 12px 16px;
+    font-size: 15px;
+    color: #FFF;
+    cursor: pointer;
+  }
+
+  .product-page__image-container {
+    padding: 32px 0.49px 31px;
+    width: 100%;
+  }
+  .product-page__product-image {
+    display: block;
+    width: 100%;
+  }
+
+  .product-page__details-container {
+    padding: 10px;
+  }
+
+  .product-page__name-price-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 6px 11px 0;
+    font-weight: bold;
+  }
+
+  .product-page__name {
+    font-size: 24px;
+    line-height: 32px;
+    text-transform: capitalize;
+  }
+
+  .product-page__price {
+    font-size: 24px;
+    line-height: 32px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-page__original-price {
+    color: #9A9A9A;
+    position: relative;
+  }
+
+  .product-page__original-price::after,
+  .product-page__original-price::before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: -5%;
+    width: 110%;
+    height: 1px;
+    background: #9A9A9A;
+  }
+  .product-page__original-price::before {
+    transform: rotate(20deg);
+  }
+  .product-page__original-price::after {
+    transform: rotate(-20deg);
+  }
+
+  .product-page__variant-name {
+    color: #6D6D8E;
+    font-size: 14px;
+    line-height: 22px;
+    text-transform: capitalize;
+  }
+
+  .product-page__variants-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 6px 0 24px;
+  }
+
+  .product-page__variant-image-wrapper {
+    height: 90px;
+    width: 68px;
+  }
+
+  .product-page__variant-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid #D2D2D2;
+  }
+
+  .product-page__action-container {
+    display: flex;
+    max-height: 40px;
+    margin-bottom: 37px;
+  }
+
+  .product-page__size-container {
+    margin-right: 6px;
+    min-width: 95px;
+    position: relative;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .product-page__size-select {
+    border: 1px solid #000;
+    height: 100%;
+    padding-left: 22px;
+    display: flex;
+    align-items: center;
+  }
+
+  .product-page__select-caret {
+    position: absolute;
+    height: 8px;
+    right: 15px;
+    top: calc(50% - 4px);
+    transform: rotate(180deg);
+  }
+
+  .product-page__size-dropdown {
+    display: none;
+    position: absolute;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    border: 1px solid #000;
+    border-top: none;
+    background: #FFF;
+  }
+
+  .product-page__size-option {
+    margin: 12px 15px 12px 22px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .product-page__size-option:hover {
+    background: #EEE;
+  }
+
+  .product-page__checkmark {
+    display: none;
+  }
+
+  .product-page__checkmark--active {
+    display: inline;
+  }
+
+  .product-page__add-to-cart {
+    flex-grow: 1;
+  }
+
+  .product-page__info-titles {
+    display: flex;
+    margin: 0 10px 16px 0;
+    justify-content: space-between;
+  }
+
+  .product-page__info-title {
+    font-size: 16px;
+    line-height: 32px;
+    font-weight: 700;
+  }
+
+  .product-page__info-title.product-page__info--active {
+    text-decoration: underline;
+  }
+
+  .product-page__info {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .product-page__product-description,
+  .product-page__details-table {
+    min-height: 134px;
+    line-height: 29px;
+    display: none;
+  }
+
+  .product-page__details-table-key {
+    font-weight: 700;
+    padding-right: 32px;
+  }
+
+  .product-page__info--active {
+    display: block;
+  }
+
+  .add-to-cart-modal__container {
+    opacity: initial;
+    position: absolute;
+    top: 52%;
+    
+  }
+
+  .add-to-cart-modal__background {
+    background-color: #000;
+    opacity: .5; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+</style>
+  
+<script>
+
+</script>
+
+</head>
+<body>
+  <div class="product-page__container">
+    <div class="product-page__image-container">
+      <img class="product-page__product-image" src="./assets/yellow_pot.jpg" alt="cooking pot">
+    </div>
+    <div class="product-page__details-container">
+      <div class="product-page__name-price-container">
+        <h1 class="product-page__name">
+          stone pot
+        </h1>
+        <div class="product-page__price">
+          <span class="product-page__current-price">123</span>
+          <span class="product-page__original-price">456</span>
+        </div>
+      </div>
+      <span class="product-page__variant-name">yellow</span>
+      <div class="product-page__variants-container">
+        <div class="product-page__variant-image-wrapper">
+          <img class="product-page__variant-image" src="./assets/yellow_pot.jpg" alt="">
+        </div>
+        <div class="product-page__variant-image-wrapper">
+          <img class="product-page__variant-image" src="./assets/black_pot.jpg" alt="">
+        </div>
+        <div class="product-page__variant-image-wrapper">
+          <img class="product-page__variant-image" src="./assets/yellow_pot.jpg" alt="">
+        </div>
+        <div class="product-page__variant-image-wrapper">
+          <img class="product-page__variant-image" src="./assets/black_pot.jpg" alt="">
+        </div>
+      </div>
+      <div class="product-page__action-container">
+        <div class="product-page__size-container">
+          <div class="product-page__size-select">S</div>
+          <img class="product-page__select-caret" src="./assets/caret_up.svg" alt="caret"/>
+          <ul class="product-page__size-dropdown">
+            <li class="product-page__size-option">
+              S
+              <img class="product-page__checkmark product-page__checkmark--active" src="./assets/checkmark.svg" alt="checkmark">
+            </li>
+            <li class="product-page__size-option">
+              M
+              <img class="product-page__checkmark" src="./assets/checkmark.svg" alt="checkmark">
+            </li>
+            <li class="product-page__size-option">
+              L
+              <img class="product-page__checkmark" src="./assets/checkmark.svg" alt="checkmark">
+            </li>
+            <li class="product-page__size-option">
+              XL
+              <img class="product-page__checkmark" src="./assets/checkmark.svg" alt="checkmark">
+            </li>
+          </ul>
+        </div>
+        <button class="primary-button product-page__add-to-cart">Add to cart</button>
+      </div>
+      <div class="product-page__info-container">
+        <div class="product-page__info-titles">
+          <span class="product-page__info-title">Product description</span>
+          <span class="product-page__info-title product-page__info--active">Product details</span>          
+        </div>
+        <div class="product-page__info">
+          <div class="product-page__product-description">
+            This pot is a great quality and solid pot that suits any condition. With great water and wind resistance you can stay warm and dry on every journey.
+          </div>
+          <table class="product-page__details-table product-page__info--active">
+            <tr class="product-page__details-table-row">
+              <td class="product-page__details-table-key">
+                Resistance
+              </td>
+              <td class="product-page__details-table-value">
+                Water proof
+              </td>
+            </tr>
+            <tr class="product-page__details-table-row">
+              <td class="product-page__details-table-key">
+                Color
+              </td>
+              <td class="product-page__details-table-value">
+                Yellow
+              </td>
+            </tr>
+            <tr class="product-page__details-table-row">
+              <td class="product-page__details-table-key">
+                Material
+              </td>
+              <td class="product-page__details-table-value">
+                50% Stone, 50% Metal
+              </td>
+            </tr>
+            <tr class="product-page__details-table-row">
+              <td class="product-page__details-table-key">
+                Article number
+              </td>
+              <td class="product-page__details-table-value">
+                5023487A
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="add-to-cart-modal__container">
+    <div class="add-to-cart-modal__background"></div>
+    <h3>You have added Stone Pot to your cart</h3>
+    <button class="primary-button add-to-cart-modal__go-to-checkout">Go to checkout</button>
+  </div>
+</body>
+</html>
