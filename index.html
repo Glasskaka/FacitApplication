@@ -201,6 +201,7 @@
     font-size: 16px;
     line-height: 32px;
     font-weight: 700;
+    cursor: pointer;
   }
 
   .product-page__info-title.product-page__info--active {
@@ -364,8 +365,9 @@
 <script>
   function init() {
     const firstOption = document.querySelector(".product-page__size-option");
+    const select = document.querySelector(".product-page__size-select");
     firstOption.classList.add("selected-option");
-    console.log(firstOption.nodeValue)
+    select.innerHTML = firstOption.textContent;
   }
 
   function openModal() {
@@ -374,12 +376,14 @@
     modalBackground.classList.add("show-modal");
     modalContainer.classList.add("show-modal");
   }
+
   function closeModal() {
     const modalBackground = document.querySelector(".add-to-cart-modal__background");
     const modalContainer = document.querySelector(".add-to-cart-modal__container");
     modalBackground.classList.remove("show-modal");
     modalContainer.classList.remove("show-modal");
   }
+
   function toggleDropdown() {
     const dropdown = document.querySelector(".product-page__size-dropdown");
     const caret = document.querySelector(".product-page__select-caret");
@@ -393,12 +397,44 @@
       caret.style.transform = 'rotate('+0+'deg)'
     }
   }
+
   function selectSize(event) {
     const dropdown = document.querySelector(".product-page__size-dropdown");
+    const allSizes = document.querySelectorAll(".product-page__size-option");
+    const select = document.querySelector(".product-page__size-select");
+    const caret = document.querySelector(".product-page__select-caret");
     const size = event.currentTarget;
-    console.log(size, event);
+
+    for (let i = 0; i < allSizes.length; i++) {
+      allSizes[i].classList.remove("selected-option");
+    }
+
+    select.innerHTML = size.textContent;
     size.classList.add("selected-option");
+    caret.style.transform = 'rotate('+180+'deg)'
     dropdown.classList.remove("show-dropdown");
+  }
+
+  function openInfoTab(event) {
+    const allTabs = document.querySelectorAll(".product-page__info-title");
+    const allInfos = document.querySelector(".product-page__info").children;
+    const tab = event.currentTarget;
+
+    tab.classList.add("product-page__info--active");
+
+    for (let i = 0; i < allTabs.length; i++) {
+      if (allTabs[i] == tab) {
+        allInfos[i].classList.add("product-page__info--active");
+      } 
+      else {
+        allTabs[i].classList.remove("product-page__info--active");
+        allInfos[i].classList.remove("product-page__info--active");
+      }     
+    }
+  }
+
+  function changeVariant(event) {
+    
   }
 </script>
 
@@ -427,22 +463,22 @@
       </div>
       <span class="product-page__variant-name">yellow</span>
       <div class="product-page__variants-container">
-        <div class="product-page__variant-image-wrapper">
-          <img class="product-page__variant-image" src="./assets/yellow_pot.jpg" alt="">
+        <div class="product-page__variant-image-wrapper" onclick="changeVariant(event)">
+          <img class="product-page__variant-image" src="./assets/yellow_pot.jpg" alt="yellow pot">
         </div>
-        <div class="product-page__variant-image-wrapper">
-          <img class="product-page__variant-image" src="./assets/black_pot.jpg" alt="">
+        <div class="product-page__variant-image-wrapper" onclick="changeVariant(event)">
+          <img class="product-page__variant-image" src="./assets/black_pot.jpg" alt="black pot">
         </div>
-        <div class="product-page__variant-image-wrapper">
-          <img class="product-page__variant-image" src="./assets/yellow_pot.jpg" alt="">
+        <div class="product-page__variant-image-wrapper" onclick="changeVariant(event)">
+          <img class="product-page__variant-image" src="./assets/yellow_pot.jpg" alt="yellow pot">
         </div>
-        <div class="product-page__variant-image-wrapper">
-          <img class="product-page__variant-image" src="./assets/black_pot.jpg" alt="">
+        <div class="product-page__variant-image-wrapper" onclick="changeVariant(event)">
+          <img class="product-page__variant-image" src="./assets/black_pot.jpg" alt="black pot">
         </div>
       </div>
       <div class="product-page__action-container">
         <div class="product-page__size-container">
-          <div class="product-page__size-select" onclick="toggleDropdown()">S</div>
+          <div class="product-page__size-select" onclick="toggleDropdown()"></div>
           <img class="product-page__select-caret" src="./assets/caret_up.svg" alt="caret"/>
           <ul class="product-page__size-dropdown">
             <li class="product-page__size-option" value="S" onclick="selectSize(event)">
@@ -467,8 +503,8 @@
       </div>
       <div class="product-page__info-container">
         <div class="product-page__info-titles">
-          <span class="product-page__info-title">Product description</span>
-          <span class="product-page__info-title product-page__info--active">Product details</span>          
+          <span class="product-page__info-title product-page__info--active" onclick="openInfoTab(event)">Product description</span>
+          <span class="product-page__info-title" onclick="openInfoTab(event)">Product details</span>          
         </div>
         <div class="product-page__info">
           <div class="product-page__product-description product-page__info--active">
