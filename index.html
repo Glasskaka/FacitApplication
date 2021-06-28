@@ -33,11 +33,13 @@
     font-size: 15px;
     color: #FFF;
     cursor: pointer;
+    font-weight: 600;
   }
 
   .product-page__image-container {
     padding: 32px 0.49px 31px;
     width: 100%;
+    max-width: 580px;
   }
   .product-page__product-image {
     display: block;
@@ -45,6 +47,7 @@
   }
 
   .product-page__details-container {
+    width: 100%;
     padding: 10px;
   }
 
@@ -115,6 +118,7 @@
     object-fit: cover;
     object-position: center;
     border: 1px solid #D2D2D2;
+    cursor: pointer;
   }
 
   .product-page__action-container {
@@ -145,6 +149,7 @@
     right: 15px;
     top: calc(50% - 4px);
     transform: rotate(180deg);
+    pointer-events: none;
   }
 
   .product-page__size-dropdown {
@@ -159,8 +164,12 @@
     background: #FFF;
   }
 
+  .show-dropdown {
+    display: block;
+  }
+
   .product-page__size-option {
-    margin: 12px 15px 12px 22px;
+    padding: 6px 15px 6px 22px;
     display: flex;
     justify-content: space-between;
   }
@@ -169,12 +178,13 @@
     background: #EEE;
   }
 
+  .selected-option > 
   .product-page__checkmark {
-    display: none;
+    display: inline;
   }
 
-  .product-page__checkmark--active {
-    display: inline;
+  .product-page__checkmark {
+    display: none;
   }
 
   .product-page__add-to-cart {
@@ -209,6 +219,10 @@
     display: none;
   }
 
+  .product-page__product-description {
+    line-height: 20px;
+  }
+
   .product-page__details-table-key {
     font-weight: 700;
     padding-right: 32px;
@@ -219,15 +233,22 @@
   }
 
   .add-to-cart-modal__container {
-    opacity: initial;
+    display: none;
     position: absolute;
-    top: 52%;
-    
+    flex-direction: column;
+    justify-content: center;
+    top: 52%;  
+    background: #FFF;
+    padding: 25px 30px 32px;
+    left: 10px;
+    right: 10px;
+    margin: auto;
+    max-width: 652px;
   }
 
   .add-to-cart-modal__background {
-    background-color: #000;
-    opacity: .5; 
+    display: none;
+    background-color: rgba(0,0,0,0.5); 
     position: fixed;
     top: 0;
     left: 0;
@@ -235,17 +256,164 @@
     bottom: 0;
   }
 
+  .add-to-cart-modal__title {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0 20px 38px;
+  }
+
+  .add-to-cart-modal__exit-button {
+    background: none;
+    outline: none;
+    border: none;
+    margin-left: auto;
+    position: absolute;
+    right: 9.3px;
+    top: 9px;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .add-to-cart-modal__go-to-checkout {
+    padding: 8px 0;
+  }
+
+  .show-modal {
+    display: flex;
+  }
+
+  @media (min-width: 769px) {
+    .product-page__container {
+      display: flex;
+      max-width: 1440px;
+      margin: auto;
+    }
+
+    .product-page__image-container {
+      padding: 29px 0 28px;
+    }
+
+    .product-page__details-container {
+      padding: 76px 0 0;
+      margin-left:  min(168px, 12vw);
+      margin-right: 20px;
+      max-width: 345px;
+    }
+
+    .product-page__name-price-container {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 24px;
+    }
+
+    .product-page__price {
+      flex-direction: row;
+      margin-top: 10px;
+    }
+
+    .product-page__original-price {
+      margin-left: 20px;
+    }
+
+    .product-page__variants-container {
+      margin-bottom: 34px;
+    }
+
+    .product-page__variant-image-wrapper {
+      height: 106px;
+      width: 77px;
+    }
+
+    .product-page__variant-image {
+      object-fit: contain;
+    }
+
+    .product-page__info-title {
+      font-size: 18px;
+    }
+
+    .product-page__details-table,
+    .product-page__product-description {
+      font-size: 16px;
+    }
+
+    .product-page__details-table-key {
+      width: 163px;
+    }
+
+    .add-to-cart-modal__container {
+      top: 31%;  
+      padding: 42px 100px 55px;
+    }
+
+    .add-to-cart-modal__title {
+      font-size: 24px;
+      line-height: 30px;
+      margin: 0 0 62px;
+    }
+    
+    .add-to-cart-modal__go-to-checkout {
+      margin: 0 50px;
+    }
+  }
+
 </style>
   
 <script>
+  function init() {
+    const firstOption = document.querySelector(".product-page__size-option");
+    firstOption.classList.add("selected-option");
+    console.log(firstOption.nodeValue)
+  }
 
+  function openModal() {
+    const modalBackground = document.querySelector(".add-to-cart-modal__background");
+    const modalContainer = document.querySelector(".add-to-cart-modal__container");
+    modalBackground.classList.add("show-modal");
+    modalContainer.classList.add("show-modal");
+  }
+  function closeModal() {
+    const modalBackground = document.querySelector(".add-to-cart-modal__background");
+    const modalContainer = document.querySelector(".add-to-cart-modal__container");
+    modalBackground.classList.remove("show-modal");
+    modalContainer.classList.remove("show-modal");
+  }
+  function toggleDropdown() {
+    const dropdown = document.querySelector(".product-page__size-dropdown");
+    const caret = document.querySelector(".product-page__select-caret");
+
+    if(dropdown.classList.contains("show-dropdown")) {
+      dropdown.classList.remove("show-dropdown");
+      caret.style.transform = 'rotate('+180+'deg)'
+    }
+    else {
+      dropdown.classList.add("show-dropdown");
+      caret.style.transform = 'rotate('+0+'deg)'
+    }
+  }
+  function selectSize(event) {
+    const dropdown = document.querySelector(".product-page__size-dropdown");
+    const size = event.currentTarget;
+    console.log(size, event);
+    size.classList.add("selected-option");
+    dropdown.classList.remove("show-dropdown");
+  }
 </script>
 
 </head>
-<body>
+<body onload="init()">
   <div class="product-page__container">
     <div class="product-page__image-container">
-      <img class="product-page__product-image" src="./assets/yellow_pot.jpg" alt="cooking pot">
+      <img 
+        class="product-page__product-image"
+        srcset="./assets/yellow_pot.jpg 321w,
+                ./assets/yellow_pot_large.jpg 581w"
+        sizes="(max-width: 768px) 321px,
+               581px"
+        src="./assets/yellow_pot_large.jpg" 
+        alt="cooking pot">
     </div>
     <div class="product-page__details-container">
       <div class="product-page__name-price-container">
@@ -274,28 +442,28 @@
       </div>
       <div class="product-page__action-container">
         <div class="product-page__size-container">
-          <div class="product-page__size-select">S</div>
+          <div class="product-page__size-select" onclick="toggleDropdown()">S</div>
           <img class="product-page__select-caret" src="./assets/caret_up.svg" alt="caret"/>
           <ul class="product-page__size-dropdown">
-            <li class="product-page__size-option">
+            <li class="product-page__size-option" value="S" onclick="selectSize(event)">
               S
-              <img class="product-page__checkmark product-page__checkmark--active" src="./assets/checkmark.svg" alt="checkmark">
+              <img class="product-page__checkmark" src="./assets/checkmark.svg" alt="checkmark">
             </li>
-            <li class="product-page__size-option">
+            <li class="product-page__size-option" onclick="selectSize(event)">
               M
               <img class="product-page__checkmark" src="./assets/checkmark.svg" alt="checkmark">
             </li>
-            <li class="product-page__size-option">
+            <li class="product-page__size-option" onclick="selectSize(event)">
               L
               <img class="product-page__checkmark" src="./assets/checkmark.svg" alt="checkmark">
             </li>
-            <li class="product-page__size-option">
+            <li class="product-page__size-option" onclick="selectSize(event)">
               XL
               <img class="product-page__checkmark" src="./assets/checkmark.svg" alt="checkmark">
             </li>
           </ul>
         </div>
-        <button class="primary-button product-page__add-to-cart">Add to cart</button>
+        <button class="primary-button product-page__add-to-cart" onclick="openModal()">Add to cart</button>
       </div>
       <div class="product-page__info-container">
         <div class="product-page__info-titles">
@@ -303,10 +471,10 @@
           <span class="product-page__info-title product-page__info--active">Product details</span>          
         </div>
         <div class="product-page__info">
-          <div class="product-page__product-description">
+          <div class="product-page__product-description product-page__info--active">
             This pot is a great quality and solid pot that suits any condition. With great water and wind resistance you can stay warm and dry on every journey.
           </div>
-          <table class="product-page__details-table product-page__info--active">
+          <table class="product-page__details-table">
             <tr class="product-page__details-table-row">
               <td class="product-page__details-table-key">
                 Resistance
@@ -344,10 +512,18 @@
       </div>
     </div>
   </div>
+  <div class="add-to-cart-modal__background" onclick="closeModal()"></div>
   <div class="add-to-cart-modal__container">
-    <div class="add-to-cart-modal__background"></div>
-    <h3>You have added Stone Pot to your cart</h3>
-    <button class="primary-button add-to-cart-modal__go-to-checkout">Go to checkout</button>
+    <button class="add-to-cart-modal__exit-button">
+      <img src="./assets/exit_button.svg" alt="exit button" onclick="closeModal()">
+    </button>
+    <h3 class="add-to-cart-modal__title">You have added Stone Pot to your cart</h3>
+    <button 
+      class="primary-button add-to-cart-modal__go-to-checkout" 
+      onclick="closeModal()"
+    >
+      Go to checkout
+    </button>
   </div>
 </body>
 </html>
